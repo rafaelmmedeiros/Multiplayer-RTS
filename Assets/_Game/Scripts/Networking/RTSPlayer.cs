@@ -9,6 +9,12 @@ namespace RTS.Networking
     {
         [SerializeField] private List<Unit> playerUnits = new List<Unit>();
 
+        public List<Unit> GetMyUnits()
+        {
+            return playerUnits;
+        }
+
+
         #region Server
 
         public override void OnStartServer()
