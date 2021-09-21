@@ -1,20 +1,16 @@
-using RTS.Units;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace RTS.Control
+namespace RTS.Units
 {
-    public class UnitSelector : MonoBehaviour
+    public class UnitSelectorHandler : MonoBehaviour
     {
         [SerializeField] private LayerMask layerMask = new LayerMask();
 
         private Camera mainCamera;
 
-        private List<Unit> selectedUnits = new List<Unit>();
-
+        public List<Unit> SelectedUnits { get; } = new List<Unit>();
 
         private void Start()
         {
@@ -25,12 +21,12 @@ namespace RTS.Control
         {
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                foreach (Unit selectedUnit in selectedUnits)
+                foreach (Unit selectedUnit in SelectedUnits)
                 {
                     selectedUnit.Deselect();
                 }
 
-                selectedUnits.Clear();
+                SelectedUnits.Clear();
             }
             else if (Mouse.current.leftButton.wasReleasedThisFrame)
             {
@@ -49,9 +45,9 @@ namespace RTS.Control
 
             if (!unit.hasAuthority) { return; }
 
-            selectedUnits.Add(unit);
+            SelectedUnits.Add(unit);
 
-            foreach (Unit selectedUnit in selectedUnits)
+            foreach (Unit selectedUnit in SelectedUnits)
             {
                 selectedUnit.Select();
             }
