@@ -26,7 +26,7 @@ namespace RTS.Units
 
         private void Update()
         {
-            if(player == null)
+            if (player == null)
             {
                 player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
             }
@@ -48,9 +48,12 @@ namespace RTS.Units
 
         private void StartSelectionArea()
         {
-            foreach (Unit selectedUnit in SelectedUnits)
+            if (!Keyboard.current.leftShiftKey.isPressed)
             {
-                selectedUnit.Deselect();
+                foreach (Unit selectedUnit in SelectedUnits)
+                {
+                    selectedUnit.Deselect();
+                }
             }
 
             SelectedUnits.Clear();
@@ -62,7 +65,7 @@ namespace RTS.Units
             UpdateSelectionArea();
         }
 
-        private void ClearSelectionArea()
+        private void ClearSelectionArea() // When clear the selected area, make selection
         {
             unitSelectedArea.gameObject.SetActive(false);
 
@@ -91,6 +94,8 @@ namespace RTS.Units
 
             foreach (Unit unit in player.GetMyUnits())
             {
+                if (SelectedUnits.Contains(unit)) continue;
+
                 Vector3 unitScreenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
 
                 if (unitScreenPosition.x < max.x && unitScreenPosition.x > min.x &&
@@ -99,7 +104,6 @@ namespace RTS.Units
                     SelectedUnits.Add(unit);
                     unit.Select();
                 }
-
             }
 
         }
