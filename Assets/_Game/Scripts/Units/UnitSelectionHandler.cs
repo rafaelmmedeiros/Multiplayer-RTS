@@ -1,13 +1,12 @@
 using Mirror;
 using RTS.Networking;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace RTS.Units
 {
-    public class UnitSelectorHandler : MonoBehaviour
+    public class UnitSelectionHandler : MonoBehaviour
     {
         [SerializeField] private RectTransform unitSelectedArea = null;
         [SerializeField] private LayerMask layerMask = new LayerMask();
@@ -54,15 +53,16 @@ namespace RTS.Units
                 {
                     selectedUnit.Deselect();
                 }
-            }
 
-            SelectedUnits.Clear();
+                SelectedUnits.Clear();
+            }
 
             unitSelectedArea.gameObject.SetActive(true);
 
             startPosition = Mouse.current.position.ReadValue();
 
             UpdateSelectionArea();
+
         }
 
         private void ClearSelectionArea() // When clear the selected area, make selection
@@ -96,15 +96,18 @@ namespace RTS.Units
             {
                 if (SelectedUnits.Contains(unit)) continue;
 
-                Vector3 unitScreenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
+                Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
 
-                if (unitScreenPosition.x < max.x && unitScreenPosition.x > min.x &&
-                    unitScreenPosition.y < max.y && unitScreenPosition.y > min.y)
+                if (screenPosition.x > min.x &&
+                    screenPosition.x < max.x &&
+                    screenPosition.y > min.y &&
+                    screenPosition.y < max.y)
                 {
                     SelectedUnits.Add(unit);
                     unit.Select();
                 }
             }
+
 
         }
 
@@ -112,7 +115,7 @@ namespace RTS.Units
         {
             Vector2 mouseCurrentPostion = Mouse.current.position.ReadValue();
 
-            float areaWidth = mouseCurrentPostion.x - startPosition.x;
+            float areaWidth = mouseCurrentPostion.x - startPosition.x;  
             float areaHeight = mouseCurrentPostion.y - startPosition.y;
 
             unitSelectedArea.sizeDelta = new Vector2(Mathf.Abs(areaWidth), Mathf.Abs(areaHeight));

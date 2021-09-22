@@ -1,4 +1,5 @@
 using Mirror;
+using RTS.Combat;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,6 +9,8 @@ namespace RTS.Units
     public class Unit : NetworkBehaviour
     {
         [SerializeField] private UnitMovement unitMovement = null;
+        [SerializeField] private Targeter targeter = null;
+
         [SerializeField] private UnityEvent onSelected = null;
         [SerializeField] private UnityEvent onDeselected = null;
 
@@ -23,6 +26,10 @@ namespace RTS.Units
             return unitMovement;
         }
 
+        public Targeter GetTargeter()
+        {
+            return targeter;
+        }
 
         #region Server
 
@@ -42,14 +49,14 @@ namespace RTS.Units
 
         public override void OnStartClient()
         {
-            if (!isClientOnly || !hasAuthority) { return; }
+            if (!isClientOnly || !hasAuthority) return;
 
             AuthorityOnUnitSpawned?.Invoke(this);
         }
 
         public override void OnStopClient()
         {
-            if (!isClientOnly || !hasAuthority) { return; }
+            if (!isClientOnly || !hasAuthority) return;
 
             AuthorityOnUnitDespawned?.Invoke(this);
         }
