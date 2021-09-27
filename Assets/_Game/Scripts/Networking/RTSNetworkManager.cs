@@ -7,6 +7,7 @@ namespace RTS.Networking
 {
     public class RTSNetworkManager : NetworkManager
     {
+        [Header("Pre Fabs")]
         [SerializeField] private GameObject unitSpawnerPrefab = null;
 
         public override void OnServerAddPlayer(NetworkConnection conn)
