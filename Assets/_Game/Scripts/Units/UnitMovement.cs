@@ -1,17 +1,18 @@
 using Mirror;
-using RTS.Combat;
 using UnityEngine;
 using UnityEngine.AI;
+using RTS.Configs;
+using RTS.Combat;
 
 namespace RTS.Units
 {
     public class UnitMovement : NetworkBehaviour
     {
-        [Header("References")]
+        [Header(Headers.scripts)]
         [SerializeField] private NavMeshAgent agent = null;
         [SerializeField] private Targeter targeter = null;
 
-        [Header("Parameters")]
+        [Header(Headers.parameters)]
         [SerializeField] private float chaseRange = 10f;
 
         #region Server

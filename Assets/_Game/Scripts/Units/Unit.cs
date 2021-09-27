@@ -1,5 +1,6 @@
 using Mirror;
 using RTS.Combat;
+using RTS.Configs;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,11 +9,11 @@ namespace RTS.Units
 {
     public class Unit : NetworkBehaviour
     {
-        [Header("References")]
+        [Header(Headers.scripts)]
         [SerializeField] private Targeter targeter = null;
         [SerializeField] private UnitMovement unitMovement = null;
 
-        [Header("Unity Events")]
+        [Header(Headers.unityEvents)]
         [SerializeField] private UnityEvent onSelected = null;
         [SerializeField] private UnityEvent onDeselected = null;
 
