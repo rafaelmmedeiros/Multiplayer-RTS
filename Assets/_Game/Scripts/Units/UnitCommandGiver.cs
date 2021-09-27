@@ -2,7 +2,6 @@ using RTS.Combat;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 namespace RTS.Units
 {
     public class UnitCommandGiver : MonoBehaviour
