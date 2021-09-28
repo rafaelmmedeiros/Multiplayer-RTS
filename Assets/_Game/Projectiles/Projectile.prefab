@@ -96,9 +96,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  rigidbodyRB: {fileID: 1092624026345900655}
+  rigidBody: {fileID: 1092624026345900655}
   destroyAfterSeconds: 5
   launchForce: 10
+  damage: 20
 --- !u!1 &4747888783846063151
 GameObject:
   m_ObjectHideFlags: 0
