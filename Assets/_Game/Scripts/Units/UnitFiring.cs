@@ -9,13 +9,11 @@ namespace RTS.Units
     {
         [Header(Headers.members)]
         [SerializeField] private Targeter targeter = null;
+        [SerializeField] private Transform projectileSpawnPointRight = null;
+        //[SerializeField] private Transform projectileSpawnPointLeft = null;
 
         [Header(Headers.prefabs)]
         [SerializeField] private GameObject projectilePrefab = null;
-
-        [Header(Headers.prefabsMembers)]
-        [SerializeField] private Transform projectileSpawnPointRight = null;
-        //[SerializeField] private Transform projectileSpawnPointLeft = null;
 
         [Header(Headers.parameters)]
         [SerializeField] private float fireRange = 5f;
