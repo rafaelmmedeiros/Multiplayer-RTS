@@ -9,7 +9,7 @@ namespace RTS.Units
 {
     public class Unit : NetworkBehaviour
     {
-        [Header(Headers.scripts)]
+        [Header(Headers.members)]
         [SerializeField] private Targeter targeter = null;
         [SerializeField] private UnitMovement unitMovement = null;
 

@@ -7,19 +7,20 @@ namespace RTS.Units
 {
     public class UnitFiring : NetworkBehaviour
     {
-        [Header(Headers.scripts)]
+        [Header(Headers.members)]
         [SerializeField] private Targeter targeter = null;
 
-        [Header(Headers.preFabs)]
+        [Header(Headers.prefabs)]
         [SerializeField] private GameObject projectilePrefab = null;
 
-        [Header(Headers.others)]
-        [SerializeField] private Transform projectileSpawnPoint = null;
+        [Header(Headers.prefabsMembers)]
+        [SerializeField] private Transform projectileSpawnPointRight = null;
+        //[SerializeField] private Transform projectileSpawnPointLeft = null;
 
         [Header(Headers.parameters)]
         [SerializeField] private float fireRange = 5f;
         [SerializeField] private float fireRate = 1f;
-        [SerializeField] private float rotationSpeed = 20f;
+        [SerializeField] private float rotationSpeed = 50f;
 
         private float lastFireTimer;
 
@@ -28,9 +29,9 @@ namespace RTS.Units
         {
             Targetable target = targeter.GetTarget();
 
-            if (target == null) { return; }
+            if (target == null) return;
 
-            if (!CanFireAtTarget()) { return; }
+            if (!CanFireAtTarget()) return;
 
             Quaternion targetRotation =
                 Quaternion.LookRotation(target.transform.position - transform.position);
@@ -41,11 +42,12 @@ namespace RTS.Units
             if (Time.time > (1 / fireRate) + lastFireTimer)
             {
                 Quaternion projectileRotation = Quaternion.LookRotation(
-                    target.GetAimAtPoint().position - projectileSpawnPoint.position);
+                    target.GetAimAtPoint().position - projectileSpawnPointRight.position);
 
                 GameObject projectileInstance = Instantiate(
-                    projectilePrefab, projectileSpawnPoint.position, projectileRotation);
+                    projectilePrefab, projectileSpawnPointRight.position, projectileRotation);
 
+                //  This will spawn to cliens and define owner
                 NetworkServer.Spawn(projectileInstance, connectionToClient);
 
                 lastFireTimer = Time.time;
@@ -55,8 +57,8 @@ namespace RTS.Units
         [Server]
         private bool CanFireAtTarget()
         {
-            return (targeter.GetTarget().transform.position - transform.position).sqrMagnitude
-                <= fireRange * fireRange;
+            return (targeter.GetTarget().transform.position - transform.position)
+                .sqrMagnitude <= fireRange * fireRange;
         }
 
     }

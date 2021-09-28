@@ -1,4 +1,5 @@
 using Mirror;
+using RTS.Configs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,16 @@ namespace RTS.Units
 {
     public class unitProjectile : NetworkBehaviour
     {
-        [SerializeField] private Rigidbody rb = null;
+        [Header(Headers.members)]
+        [SerializeField] private Rigidbody rigidbodyRB = null;
+
+        [Header(Headers.parameters)]
         [SerializeField] private float destroyAfterSeconds = 5f;
         [SerializeField] private float launchForce = 10f;
 
-        void Start()
+        private void Start()
         {
-            rb.velocity = transform.forward * launchForce;
+            rigidbodyRB.velocity = transform.forward * launchForce;
         }
 
         public override void OnStartServer()

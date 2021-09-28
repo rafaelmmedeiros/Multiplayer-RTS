@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3557266368822628911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6781397311259358217}
+  m_Layer: 0
+  m_Name: Projectile Spawn Point Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6781397311259358217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3557266368822628911}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.148, y: 1.623, z: 2.456}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3274957785155779833}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4788635879250814700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266756808591537658}
+  m_Layer: 0
+  m_Name: Projectile Spawn Point Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &266756808591537658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4788635879250814700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.178, y: 1.623, z: 2.456}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3274957785155779833}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4929225289084610086
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,8 +155,9 @@ GameObject:
   - component: {fileID: -5533552840561617154}
   - component: {fileID: -8814971545814121422}
   - component: {fileID: 740785193691566206}
-  - component: {fileID: 1356173199583570169}
   - component: {fileID: 7516155262402496689}
+  - component: {fileID: 1356173199583570169}
+  - component: {fileID: 8118690262307677116}
   - component: {fileID: -2002723294834393253}
   - component: {fileID: -5118887592824143304}
   m_Layer: 0
@@ -120,6 +181,8 @@ Transform:
   - {fileID: 6473736661566187932}
   - {fileID: 2602845126462452132}
   - {fileID: 6472190156678712103}
+  - {fileID: 266756808591537658}
+  - {fileID: 6781397311259358217}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -204,22 +267,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.89, y: 2.25, z: 2.76}
   m_Center: {x: 0, y: 1.15, z: 0.12}
---- !u!114 &1356173199583570169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7799120742267180780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad3ffd568a0ec6409fdad13fd56e283, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  agent: {fileID: -8814971545814121422}
-  targeter: {fileID: -5118887592824143304}
 --- !u!114 &7516155262402496689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +281,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  unitMovement: {fileID: 1356173199583570169}
   targeter: {fileID: -5118887592824143304}
+  unitMovement: {fileID: 1356173199583570169}
   onSelected:
     m_PersistentCalls:
       m_Calls:
@@ -266,6 +313,43 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1356173199583570169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799120742267180780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad3ffd568a0ec6409fdad13fd56e283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  agent: {fileID: -8814971545814121422}
+  targeter: {fileID: -5118887592824143304}
+  chaseRange: 10
+--- !u!114 &8118690262307677116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799120742267180780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f0bd10435fe6a419b82616d13b3129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  targeter: {fileID: -5118887592824143304}
+  projectilePrefab: {fileID: 1159683451684521981, guid: cc8e53e57523d8647a2fe1a182b13aeb, type: 3}
+  projectileSpawnPointRight: {fileID: 266756808591537658}
+  fireRange: 11
+  fireRate: 1
+  rotationSpeed: 200
 --- !u!114 &-2002723294834393253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  target: {fileID: 0}
 --- !u!1 &8138319793672190707
 GameObject:
   m_ObjectHideFlags: 0

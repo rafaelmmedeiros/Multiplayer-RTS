@@ -8,7 +8,7 @@ namespace RTS.Units
 {
     public class UnitMovement : NetworkBehaviour
     {
-        [Header(Headers.scripts)]
+        [Header(Headers.members)]
         [SerializeField] private NavMeshAgent agent = null;
         [SerializeField] private Targeter targeter = null;
 
