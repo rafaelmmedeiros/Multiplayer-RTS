@@ -14,7 +14,6 @@ namespace RTS.Networking
             return playerUnits;
         }
 
-
         #region Server
 
         public override void OnStartServer()
@@ -47,9 +46,9 @@ namespace RTS.Networking
 
         #region Client
 
-        public override void OnStartClient()
+        public override void OnStartAuthority()
         {
-            if (!isClientOnly) return;
+            if (NetworkServer.active) return;
 
             Unit.AuthorityOnUnitSpawned += AuthorityHandleUnitSpawned;
             Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
@@ -57,7 +56,7 @@ namespace RTS.Networking
 
         public override void OnStopClient()
         {
-            if (!isClientOnly) return;
+            if (!isClientOnly || !hasAuthority) return;
 
             Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
             Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
@@ -65,15 +64,11 @@ namespace RTS.Networking
 
         private void AuthorityHandleUnitSpawned(Unit unit)
         {
-            if (!hasAuthority) return;
-
             playerUnits.Add(unit);
         }
 
         private void AuthorityHandleUnitDespawned(Unit unit)
         {
-            if (!hasAuthority) return;
-
             playerUnits.Remove(unit);
         }
 
