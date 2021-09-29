@@ -1,5 +1,6 @@
 using Mirror;
 using RTS.Networking;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,18 @@ namespace RTS.Units
         private void Start()
         {
             mainCamera = Camera.main;
+
+            Unit.AuthorityOnUnitDespawned += HandleAuthorityOnUnitDespawned;
+        }
+
+        private void OnDestroy()
+        {
+            Unit.AuthorityOnUnitDespawned -= HandleAuthorityOnUnitDespawned;
+        }
+
+        private void HandleAuthorityOnUnitDespawned(Unit unit)
+        {
+            SelectedUnits.Remove(unit);
         }
 
         private void Update()
@@ -115,7 +128,7 @@ namespace RTS.Units
         {
             Vector2 mouseCurrentPostion = Mouse.current.position.ReadValue();
 
-            float areaWidth = mouseCurrentPostion.x - startPosition.x;  
+            float areaWidth = mouseCurrentPostion.x - startPosition.x;
             float areaHeight = mouseCurrentPostion.y - startPosition.y;
 
             unitSelectedArea.sizeDelta = new Vector2(Mathf.Abs(areaWidth), Mathf.Abs(areaHeight));
