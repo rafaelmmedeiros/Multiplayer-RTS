@@ -32,7 +32,7 @@ namespace RTS.Combat
 
             if (currentHealth != 0) return;
 
-            ServerOnDie?.Invoke(); // ? Stop erros if someone is not lintening
+            ServerOnDie?.Invoke(); // ? Stop errors if someone is not lintening
 
             Debug.Log("Die");
         }

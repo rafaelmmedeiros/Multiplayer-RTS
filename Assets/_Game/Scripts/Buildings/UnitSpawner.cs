@@ -1,6 +1,6 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
+using RTS.Combat;
+using RTS.Configs;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,10 +8,30 @@ namespace RTS.Buildings
 {
     public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     {
-        [SerializeField] private GameObject unitPrefab = null;
+        [Header(Headers.members)]
+        [SerializeField] private Health health = null;
         [SerializeField] private Transform unitSpawnPoint = null;
 
+        [Header(Headers.prefabs)]
+        [SerializeField] private GameObject unitPrefab = null;
+
         #region Server
+
+        public override void OnStartServer()
+        {
+            health.ServerOnDie += ServerHandleOnDie;
+        }
+
+        public override void OnStopServer()
+        {
+            health.ServerOnDie -= ServerHandleOnDie;
+        }
+
+        [Server]
+        private void ServerHandleOnDie()
+        {
+            NetworkServer.Destroy(gameObject);
+        }
 
         [Command]
         private void CmdSpawnUnit()
@@ -25,8 +45,6 @@ namespace RTS.Buildings
         }
 
         #endregion
-
-        // THE GREAT DIVIDE
 
         #region Client
 

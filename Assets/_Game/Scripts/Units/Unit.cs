@@ -12,6 +12,7 @@ namespace RTS.Units
         [Header(Headers.members)]
         [SerializeField] private Targeter targeter = null;
         [SerializeField] private UnitMovement unitMovement = null;
+        [SerializeField] private Health health = null;
 
         [Header(Headers.unityEvents)]
         [SerializeField] private UnityEvent onSelected = null;
@@ -38,12 +39,20 @@ namespace RTS.Units
 
         public override void OnStartServer()
         {
+            health.ServerOnDie += ServerHandleOnDie;
             ServerOnUnitSpawned?.Invoke(this);
         }
 
         public override void OnStopServer()
         {
+            health.ServerOnDie -= ServerHandleOnDie;
             ServerOnUnitDespawned?.Invoke(this);
+        }
+
+        [Server]
+        private void ServerHandleOnDie()
+        {
+            NetworkServer.Destroy(gameObject);
         }
 
         #endregion
