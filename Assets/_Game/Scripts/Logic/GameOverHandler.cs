@@ -27,16 +27,16 @@ namespace RTS.Logic
         private void HandleServerBaseSpawned(UnitBase unitbase)
         {
             bases.Add(unitbase);
-
-            if (bases.Count != 1) return;
-
-            Debug.Log("Game over!");
         }
 
         [Server]
         private void HandleServerBaseDespawned(UnitBase unitbase)
         {
             bases.Remove(unitbase);
+
+            if (bases.Count != 1) return;
+
+            Debug.Log("Game over!");
         }
 
         #endregion
