@@ -1,4 +1,5 @@
 using Mirror;
+using RTS.Buildings;
 using RTS.Configs;
 using System;
 using UnityEngine;
@@ -21,6 +22,22 @@ namespace RTS.Combat
         public override void OnStartServer()
         {
             currentHealth = maxHealth;
+
+            UnitBase.ServerOnPlayerDie += HandleServerOnPlayerDie;
+        }
+
+        public override void OnStopServer()
+        {
+            UnitBase.ServerOnPlayerDie -= HandleServerOnPlayerDie;
+        }
+
+        [Server]
+        private void HandleServerOnPlayerDie(int connectionId)
+        {
+            if (connectionToClient.connectionId != connectionId) return;
+
+            //  Destroy all units if the base is destroyed!
+            DealDamage(currentHealth);
         }
 
         [Server]

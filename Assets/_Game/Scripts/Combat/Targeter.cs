@@ -1,4 +1,6 @@
 using Mirror;
+using RTS.Logic;
+using System;
 using UnityEngine;
 
 namespace RTS.Combat
@@ -14,6 +16,16 @@ namespace RTS.Combat
 
         #region Server
 
+        public override void OnStartServer()
+        {
+            GameOverHandler.ServerOnGameOver += HandleServerOnGameOver;
+        }
+
+        public override void OnStopServer()
+        {
+            GameOverHandler.ServerOnGameOver += HandleServerOnGameOver;
+        }
+
         [Command]
         public void CmdSetTarget(GameObject targetGameObject)
         {
@@ -26,6 +38,12 @@ namespace RTS.Combat
         public void ClearTarget()
         {
             target = null;
+        }
+
+        [Server]
+        private void HandleServerOnGameOver()
+        {
+            ClearTarget();
         }
 
         #endregion
