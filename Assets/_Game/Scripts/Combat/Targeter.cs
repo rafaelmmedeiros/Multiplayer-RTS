@@ -9,10 +9,7 @@ namespace RTS.Combat
     {
         private Targetable target;
 
-        public Targetable GetTarget()
-        {
-            return target;
-        }
+        public Targetable GetTarget() => target;
 
         #region Server
 

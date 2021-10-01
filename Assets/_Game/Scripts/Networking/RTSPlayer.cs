@@ -10,15 +10,9 @@ namespace RTS.Networking
         private List<Unit> playerUnits = new List<Unit>();
         private List<Building> playerBuildings = new List<Building>();
 
-        public List<Unit> GetPlayerUnits()
-        {
-            return playerUnits;
-        }
+        public List<Unit> GetPlayerUnits() => playerUnits;
 
-        public List<Building> GetPlayerBuildings()
-        {
-            return playerBuildings;
-        }
+        public List<Building> GetPlayerBuildings() => playerBuildings;
 
         #region Server
 

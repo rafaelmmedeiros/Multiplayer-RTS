@@ -7,9 +7,6 @@ namespace RTS.Combat
     {
         [SerializeField] private Transform aimAtPoint = null;
 
-        public Transform GetAimAtPoint()
-        {
-            return aimAtPoint;
-        }
+        public Transform GetAimAtPoint() => aimAtPoint;
     }
 }

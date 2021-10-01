@@ -21,20 +21,9 @@ namespace RTS.Buildings
         public static event Action<Building> AuthorityOnBuildingSpawned;
         public static event Action<Building> AuthorityOnBuildingDespawned;
 
-        public int GetId()
-        {
-            return id;
-        }
-
-        public Sprite GetIcon()
-        {
-            return icon;
-        }
-
-        public int GetPrice()
-        {
-            return price;
-        }
+        public int GetId() => id;
+        public Sprite GetIcon() => icon;
+        public int GetPrice() => price;
 
         #region Server
 
