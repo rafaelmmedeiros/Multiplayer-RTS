@@ -18,6 +18,9 @@ namespace RTS.Buildings
         public static event Action<Building> ServerOnBuildingSpawned;
         public static event Action<Building> ServerOnBuildingDespawned;
 
+        public static event Action<Building> AuthorityOnBuildingSpawned;
+        public static event Action<Building> AuthorityOnBuildingDespawned;
+
         public int GetId()
         {
             return id;
@@ -48,6 +51,19 @@ namespace RTS.Buildings
         #endregion
 
         #region Client
+
+        public override void OnStartAuthority()
+        {
+            AuthorityOnBuildingSpawned?.Invoke(this);
+        }
+
+        public override void OnStopClient()
+        {
+            if (!hasAuthority) return;
+
+            AuthorityOnBuildingDespawned?.Invoke(this);
+        }
+
         #endregion
     }
 }

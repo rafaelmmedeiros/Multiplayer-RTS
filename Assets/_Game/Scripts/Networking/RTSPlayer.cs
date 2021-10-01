@@ -2,7 +2,6 @@ using Mirror;
 using RTS.Buildings;
 using RTS.Units;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace RTS.Networking
 {
@@ -80,6 +79,9 @@ namespace RTS.Networking
 
             Unit.AuthorityOnUnitSpawned += AuthorityHandleUnitSpawned;
             Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
+
+            Building.AuthorityOnBuildingSpawned += AuthorityHandleBuildingSpawned;
+            Building.AuthorityOnBuildingDespawned += AuthorityHandleBuildingDespawned;
         }
 
         public override void OnStopClient()
@@ -88,6 +90,9 @@ namespace RTS.Networking
 
             Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
             Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
+
+            Building.AuthorityOnBuildingSpawned -= AuthorityHandleBuildingSpawned;
+            Building.AuthorityOnBuildingDespawned -= AuthorityHandleBuildingDespawned;
         }
 
         private void AuthorityHandleUnitSpawned(Unit unit)
@@ -98,6 +103,16 @@ namespace RTS.Networking
         private void AuthorityHandleUnitDespawned(Unit unit)
         {
             playerUnits.Remove(unit);
+        }
+
+        private void AuthorityHandleBuildingDespawned(Building building)
+        {
+            playerBuildings.Add(building);
+        }
+
+        private void AuthorityHandleBuildingSpawned(Building building)
+        {
+            playerBuildings.Remove(building);
         }
 
         #endregion
