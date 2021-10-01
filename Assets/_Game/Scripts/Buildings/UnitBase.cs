@@ -11,6 +11,8 @@ namespace RTS.Buildings
         [Header(Headers.members)]
         [SerializeField] private Health health = null;
 
+        public static event Action<int> ServerOnPlayerDie;
+
         public static event Action<UnitBase> ServerOnUnitSpawned;
         public static event Action<UnitBase> ServerOnUnitDespawned;
 
@@ -18,21 +20,23 @@ namespace RTS.Buildings
 
         public override void OnStartServer()
         {
-            health.ServerOnDie += ServerHandleOnDie;
+            health.ServerOnDie += HandleServerOnDie;
 
             ServerOnUnitSpawned?.Invoke(this);
         }
 
         public override void OnStopServer()
         {
-            health.ServerOnDie -= ServerHandleOnDie;
+            health.ServerOnDie -= HandleServerOnDie;
 
             ServerOnUnitDespawned?.Invoke(this);
         }
 
         [Server]
-        private void ServerHandleOnDie()
+        private void HandleServerOnDie()
         {
+            ServerOnPlayerDie?.Invoke(connectionToClient.connectionId);
+
             NetworkServer.Destroy(gameObject);
         }
 

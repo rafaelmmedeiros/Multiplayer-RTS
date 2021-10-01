@@ -1,4 +1,5 @@
 using Mirror;
+using RTS.Logic;
 using RTS.Networking;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,11 +24,18 @@ namespace RTS.Units
             mainCamera = Camera.main;
 
             Unit.AuthorityOnUnitDespawned += HandleAuthorityOnUnitDespawned;
+            GameOverHandler.ClientOnGameOver += HandleClientOnGameOver;
         }
 
         private void OnDestroy()
         {
             Unit.AuthorityOnUnitDespawned -= HandleAuthorityOnUnitDespawned;
+            GameOverHandler.ClientOnGameOver -= HandleClientOnGameOver;
+        }
+
+        private void HandleClientOnGameOver(string winnerName)
+        {
+            enabled = false;
         }
 
         private void HandleAuthorityOnUnitDespawned(Unit unit)
@@ -54,7 +62,6 @@ namespace RTS.Units
             {
                 UpdateSelectionArea();
             }
-
         }
 
         private void StartSelectionArea()

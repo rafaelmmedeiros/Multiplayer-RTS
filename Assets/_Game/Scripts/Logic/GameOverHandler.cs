@@ -9,6 +9,7 @@ namespace RTS.Logic
 {
     public class GameOverHandler : NetworkBehaviour
     {
+        public static event Action ServerOnGameOver;
         public static event Action<string> ClientOnGameOver;
 
         private List<UnitBase> bases = new List<UnitBase>();
@@ -43,6 +44,8 @@ namespace RTS.Logic
             int winnerPlayerId = bases[0].connectionToClient.connectionId;
 
             RpcGameOVer($"Player: {winnerPlayerId} has won!");
+
+            ServerOnGameOver?.Invoke();
         }
 
         #endregion

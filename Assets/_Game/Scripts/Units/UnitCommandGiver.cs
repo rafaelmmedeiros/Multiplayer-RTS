@@ -1,4 +1,6 @@
 using RTS.Combat;
+using RTS.Logic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +16,13 @@ namespace RTS.Units
         private void Start()
         {
             mainCamera = Camera.main;
+
+            GameOverHandler.ClientOnGameOver += HandleClientOnGameOver;
+        }
+
+        private void OnDestroy()
+        {
+            GameOverHandler.ClientOnGameOver -= HandleClientOnGameOver;
         }
 
         private void Update()
@@ -37,6 +46,11 @@ namespace RTS.Units
             }
 
             TryMove(hit.point);
+        }
+
+        private void HandleClientOnGameOver(string obj)
+        {
+            enabled = false;
         }
 
         private void TryMove(Vector3 point)

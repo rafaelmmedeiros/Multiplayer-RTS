@@ -1,13 +1,11 @@
 using Mirror;
 using RTS.Combat;
 using RTS.Configs;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RTS.Units
 {
-    public class unitProjectile : NetworkBehaviour
+    public class UnitProjectile : NetworkBehaviour
     {
         [Header(Headers.members)]
         [SerializeField] private Rigidbody rigidBody = null;
