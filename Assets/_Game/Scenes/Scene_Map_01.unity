@@ -360,8 +360,8 @@ GameObject:
   - component: {fileID: 1277581796}
   - component: {fileID: 1277581795}
   - component: {fileID: 1277581794}
-  m_Layer: 0
-  m_Name: Ground
+  m_Layer: 10
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,7 +551,7 @@ MonoBehaviour:
   unitSelectedArea: {fileID: 1297238132}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
 --- !u!4 &1474894103
 Transform:
   m_ObjectHideFlags: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
   unitSelectionHandler: {fileID: 1474894102}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1281
 --- !u!1 &1573306451
 GameObject:
   m_ObjectHideFlags: 0
