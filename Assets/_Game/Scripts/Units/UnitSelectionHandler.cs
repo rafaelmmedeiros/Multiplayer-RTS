@@ -111,7 +111,7 @@ namespace RTS.Units
             Vector2 min = unitSelectedArea.anchoredPosition - (unitSelectedArea.sizeDelta / 2);
             Vector2 max = unitSelectedArea.anchoredPosition + (unitSelectedArea.sizeDelta / 2);
 
-            foreach (Unit unit in player.GetMyUnits())
+            foreach (Unit unit in player.GetPlayerUnits())
             {
                 if (SelectedUnits.Contains(unit)) continue;
 
