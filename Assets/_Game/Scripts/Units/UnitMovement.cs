@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using RTS.Configs;
 using RTS.Combat;
+using RTS.Logic;
+using System;
 
 namespace RTS.Units
 {
@@ -16,6 +18,22 @@ namespace RTS.Units
         [SerializeField] private float chaseRange = 10f;
 
         #region Server
+
+        public override void OnStartServer()
+        {
+            GameOverHandler.ServerOnGameOver += HandleServerOnGameOver;
+        }
+
+        public override void OnStopServer()
+        {
+            GameOverHandler.ServerOnGameOver -= HandleServerOnGameOver;
+        }
+
+        [Server]
+        private void HandleServerOnGameOver()
+        {
+            agent.ResetPath();
+        }
 
         [ServerCallback]
         private void Update()
