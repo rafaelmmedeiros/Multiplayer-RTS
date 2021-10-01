@@ -8,6 +8,7 @@ namespace RTS.Buildings
     public class Building : NetworkBehaviour
     {
         [SerializeField] private int id = -1;
+        [SerializeField] private GameObject buildingPreoview = null;
 
         [Header(Headers.members)]
         [SerializeField] private Sprite icon = null;
@@ -21,6 +22,7 @@ namespace RTS.Buildings
         public static event Action<Building> AuthorityOnBuildingSpawned;
         public static event Action<Building> AuthorityOnBuildingDespawned;
 
+        public GameObject GetBuildingPreview() => buildingPreoview;
         public int GetId() => id;
         public Sprite GetIcon() => icon;
         public int GetPrice() => price;
