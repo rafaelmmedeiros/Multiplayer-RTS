@@ -63,4 +63,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerUnits: []
+  buildings:
+  - {fileID: 209292510756278058, guid: e6867d9393e430048b434d6f2c014c20, type: 3}

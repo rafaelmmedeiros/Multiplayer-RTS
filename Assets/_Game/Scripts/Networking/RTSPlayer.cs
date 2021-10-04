@@ -2,16 +2,18 @@ using Mirror;
 using RTS.Buildings;
 using RTS.Units;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RTS.Networking
 {
     public class RTSPlayer : NetworkBehaviour
     {
+        [SerializeField] private Building[] buildings = new Building[0];
+
         private List<Unit> playerUnits = new List<Unit>();
         private List<Building> playerBuildings = new List<Building>();
 
         public List<Unit> GetPlayerUnits() => playerUnits;
-
         public List<Building> GetPlayerBuildings() => playerBuildings;
 
         #region Server
@@ -33,6 +35,27 @@ namespace RTS.Networking
             Building.ServerOnBuildingSpawned -= HandleServerBuildingSpawned;
             Building.ServerOnBuildingDespawned -= HandleServerBuildingDespawned;
 
+        }
+
+        [Command]
+        public void CmdTryPlaceBuilding(int buildingId, Vector3 point)
+        {
+            Building buildingToPlace = null;
+
+            foreach (Building building in buildings)
+            {
+                if (building.GetId() == buildingId)
+                {
+                    buildingToPlace = building;
+                    break;
+                }
+            }
+
+            if (buildingToPlace == null) return;
+
+            GameObject buildingInstance = Instantiate(buildingToPlace.gameObject, point, buildingToPlace.transform.rotation);
+
+            NetworkServer.Spawn(buildingInstance, connectionToClient);
         }
 
         private void HandleServerUnitSpawned(Unit unit)

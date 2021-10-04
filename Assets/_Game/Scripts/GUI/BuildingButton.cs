@@ -84,7 +84,7 @@ namespace RTS.GUI
 
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, floorMask))
             {
-                // place building
+                player.CmdTryPlaceBuilding(buidlingPrefab.GetId(), hit.point);
             }
 
             Destroy(buildingPreviewInstance);
