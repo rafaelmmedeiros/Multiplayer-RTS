@@ -111,6 +111,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3995603073147833449, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995603073147833449, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
       propertyPath: m_Center.y
       value: 0.5
       objectReference: {fileID: 0}

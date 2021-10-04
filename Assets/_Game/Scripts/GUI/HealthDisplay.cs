@@ -1,8 +1,9 @@
+using RTS.Combat;
 using RTS.Configs;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RTS.Combat
+namespace RTS.GUI
 {
     public class HealthDisplay : MonoBehaviour
     {
