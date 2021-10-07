@@ -12,16 +12,19 @@ namespace RTS.Networking
         [SerializeField] private Building[] buildings = new Building[0];
 
         [SyncVar(hook = nameof(HandleClientMineralsUpdated))]
-        private int minerals = 500;
+        private int money = 500;
 
         private List<Unit> playerUnits = new List<Unit>();
         private List<Building> playerBuildings = new List<Building>();
 
-        public int GetMinerals() => minerals;
+        public int GetMinerals() => money;
         public List<Unit> GetPlayerUnits() => playerUnits;
         public List<Building> GetPlayerBuildings() => playerBuildings;
 
-        public event Action<int> ClientOnMineralsUpdated;
+        [Server]
+        public void SetMinerals(int money) => this.money = money;
+
+        public event Action<int> ClientOnMoneyUpdated;
 
         #region Server
 
@@ -121,7 +124,7 @@ namespace RTS.Networking
 
         private void HandleClientMineralsUpdated(int oldResource, int newResource)
         {
-            ClientOnMineralsUpdated?.Invoke(newResource);
+            ClientOnMoneyUpdated?.Invoke(newResource);
         }
 
         private void AuthorityHandleUnitSpawned(Unit unit)

@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace RTS.GUI
 {
-    public class MineralsDisplay : MonoBehaviour
+    public class MoneyDisplay : MonoBehaviour
     {
-        [SerializeField] private TMP_Text mineralsText = null;
+        [SerializeField] private TMP_Text moneyText = null;
 
         private RTSPlayer player;
 
@@ -20,20 +20,20 @@ namespace RTS.GUI
 
                 if (player != null)
                 {
-                    HandleClientOnMineralsUpdated(player.GetMinerals());
-                    player.ClientOnMineralsUpdated += HandleClientOnMineralsUpdated;
+                    HandleClientOnMoneyUpdated(player.GetMinerals());
+                    player.ClientOnMoneyUpdated += HandleClientOnMoneyUpdated;
                 }
             }
         }
 
         private void OnDestroy()
         {
-            player.ClientOnMineralsUpdated -= HandleClientOnMineralsUpdated;
+            player.ClientOnMoneyUpdated -= HandleClientOnMoneyUpdated;
         }
 
-        private void HandleClientOnMineralsUpdated(int minerals)
+        private void HandleClientOnMoneyUpdated(int money)
         {
-            mineralsText.text = $"Minerals: {minerals}";
+            moneyText.text = $"Money: {money}";
         }
     }
 }

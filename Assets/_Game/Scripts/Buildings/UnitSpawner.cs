@@ -30,7 +30,7 @@ namespace RTS.Buildings
         [Server]
         private void ServerHandleOnDie()
         {
-            //NetworkServer.Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
 
         [Command]

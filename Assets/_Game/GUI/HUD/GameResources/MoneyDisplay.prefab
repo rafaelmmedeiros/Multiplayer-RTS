@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5804412887427904626}
   - component: {fileID: 5804412887427904627}
   m_Layer: 0
-  m_Name: MineralsDisplay
+  m_Name: MoneyDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb1aba297356134b86ddb755104d3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineralsText: {fileID: 5804412888593436373}
+  moneyText: {fileID: 5804412888593436373}
 --- !u!1 &5804412888397512611
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 5804412888593436378}
   - component: {fileID: 5804412888593436373}
   m_Layer: 0
-  m_Name: Minerals Resources Text
+  m_Name: Money Resources Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Minerals: 1000'
+  m_text: 'Money: 1000'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
