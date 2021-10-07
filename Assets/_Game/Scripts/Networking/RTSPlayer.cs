@@ -1,6 +1,7 @@
 using Mirror;
 using RTS.Buildings;
 using RTS.Units;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,17 @@ namespace RTS.Networking
     {
         [SerializeField] private Building[] buildings = new Building[0];
 
+        [SyncVar(hook = nameof(HandleClientMineralsUpdated))]
+        private int minerals = 500;
+
         private List<Unit> playerUnits = new List<Unit>();
         private List<Building> playerBuildings = new List<Building>();
 
+        public int GetMinerals() => minerals;
         public List<Unit> GetPlayerUnits() => playerUnits;
         public List<Building> GetPlayerBuildings() => playerBuildings;
+
+        public event Action<int> ClientOnMineralsUpdated;
 
         #region Server
 
@@ -110,6 +117,11 @@ namespace RTS.Networking
 
             Building.AuthorityOnBuildingSpawned -= AuthorityHandleBuildingSpawned;
             Building.AuthorityOnBuildingDespawned -= AuthorityHandleBuildingDespawned;
+        }
+
+        private void HandleClientMineralsUpdated(int oldResource, int newResource)
+        {
+            ClientOnMineralsUpdated?.Invoke(newResource);
         }
 
         private void AuthorityHandleUnitSpawned(Unit unit)
