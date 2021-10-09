@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class prova : MonoBehaviour
 {
-
-
 }
 
 public class Machine
@@ -30,14 +28,14 @@ public class Machine
 
             int productQuantityToSupply = productToSupply.Quantity;
 
-            foreach (var slot in productSlotsByDeviation) // Try each slot
+            foreach (Slot slot in productSlotsByDeviation) // Try each slot
             {
                 FillSlot(slot, slot.DesiredQuantity, ref productQuantityToSupply); // FILL SLOT TO DESIRED
             }
 
             if (productQuantityToSupply <= 0) continue;
 
-            foreach (var slot in productSlotsByDeviation) // Try each slot again
+            foreach (Slot slot in productSlotsByDeviation) // Try each slot again
             {
                 FillSlot(slot, slot.Capacity, ref productQuantityToSupply); // FILL SLOT TO CAPACITY
             }
@@ -53,10 +51,10 @@ public class Machine
         // It will fill the Slot if it has space to fill
         if (slot.CurrentQuantity < threshold)
         {
-            // Guarantees never to go beyond the maximum.
-            int quantityToSupply = Math.Min(slot.Capacity - slot.CurrentQuantity, productQuantityToSupply);
+            // Guarantees never to go beyond the threshold.
+            int quantityToSupply = Math.Min(threshold - slot.CurrentQuantity, productQuantityToSupply);
 
-            // Correct the productQuantityToFill, because the PROP quantity is not a set;.
+            // Update the productQuantityToSupply.
             productQuantityToSupply -= quantityToSupply;
 
             // Update Slot Quantity
