@@ -1,8 +1,6 @@
 using RTS.Buildings;
 using RTS.Configs;
 using RTS.Networking;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
