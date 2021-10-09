@@ -20,7 +20,7 @@ namespace RTS.GUI
 
                 if (player != null)
                 {
-                    HandleClientOnMoneyUpdated(player.GetMinerals());
+                    HandleClientOnMoneyUpdated(player.GetMoney());
                     player.ClientOnMoneyUpdated += HandleClientOnMoneyUpdated;
                 }
             }

@@ -44,7 +44,7 @@ namespace RTS.Buildings
 
             if (timer <= 0)
             {
-                player.SetMinerals(player.GetMinerals() + resourcePerInterval);
+                player.SetMoney(player.GetMoney() + resourcePerInterval);
                 timer = interval;
             }
         }

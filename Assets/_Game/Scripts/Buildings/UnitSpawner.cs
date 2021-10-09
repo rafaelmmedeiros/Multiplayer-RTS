@@ -1,6 +1,7 @@
 using Mirror;
 using RTS.Combat;
 using RTS.Configs;
+using RTS.Networking;
 using RTS.Units;
 using TMPro;
 using UnityEngine;
@@ -25,10 +26,33 @@ namespace RTS.Buildings
         [Header(Headers.prefabs)]
         [SerializeField] private Unit unitPrefab = null;
 
-        [SyncVar]
+        [SyncVar(hook = nameof(HandleClientUnitQueueUnitUpdated))]
         private int queueUnits;
         [SyncVar]
         private float unitTimer;
+
+        private float progressImageVelocity;
+
+        private void Start()
+        {
+            timerImage.fillAmount = 0;
+            unitsToSpawnText.text = "0";
+            unitTimer = 0;
+            queueUnits = 0;
+        }
+
+        private void Update()
+        {
+            if (isServer)
+            {
+                ProduceUmits();
+            }
+
+            if (isClient)
+            {
+                UpdateTimerDisplay();
+            }
+        }
 
         #region Server
 
@@ -43,6 +67,32 @@ namespace RTS.Buildings
         }
 
         [Server]
+        private void ProduceUmits()
+        {
+            if (queueUnits == 0) return;
+
+            unitTimer += Time.deltaTime;
+
+            if (unitTimer < timeToSpawnUnit) return;
+
+            GameObject unitInstance = Instantiate(
+                unitPrefab.gameObject,
+                unitSpawnPoint.position,
+                unitSpawnPoint.rotation);
+
+            NetworkServer.Spawn(unitInstance, connectionToClient);
+
+            Vector3 spawnOffset = Random.insideUnitSphere * spawnMoveRange;
+            spawnOffset.y = unitSpawnPoint.position.y;
+
+            UnitMovement unitMovement = unitInstance.GetComponent<UnitMovement>();
+            unitMovement.ServerMove(unitSpawnPoint.position + spawnOffset);
+
+            queueUnits--;
+            unitTimer = 0f;
+        }
+
+        [Server]
         private void ServerHandleOnDie()
         {
             NetworkServer.Destroy(gameObject);
@@ -51,17 +101,38 @@ namespace RTS.Buildings
         [Command]
         private void CmdSpawnUnit()
         {
-            GameObject unitInstance = Instantiate(
-                unitPrefab,
-                unitSpawnPoint.position,
-                unitSpawnPoint.rotation);
+            if (queueUnits == maxUnitQueue) return;
 
-            NetworkServer.Spawn(unitInstance, connectionToClient);
+            RTSPlayer player = connectionToClient.identity.GetComponent<RTSPlayer>();
+
+            if (player.GetMoney() < unitPrefab.GetMoneyCost()) return;
+
+            queueUnits++;
+
+            player.SetMoney(player.GetMoney() - unitPrefab.GetMoneyCost());
         }
 
         #endregion
 
         #region Client
+
+        private void UpdateTimerDisplay()
+        {
+            float progress = unitTimer / timeToSpawnUnit;
+
+            if (progress < timerImage.fillAmount)
+            {
+                timerImage.fillAmount = progress;
+            }
+            else
+            {
+                timerImage.fillAmount = Mathf.SmoothDamp(
+                    timerImage.fillAmount,
+                    progress,
+                    ref progressImageVelocity,
+                    0.1f);
+            }
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -70,6 +141,11 @@ namespace RTS.Buildings
             if (!hasAuthority) return;
 
             CmdSpawnUnit();
+        }
+
+        public void HandleClientUnitQueueUnitUpdated(int oldQueueUnits, int newQueueUnits)
+        {
+            unitsToSpawnText.text = newQueueUnits.ToString();
         }
 
         #endregion

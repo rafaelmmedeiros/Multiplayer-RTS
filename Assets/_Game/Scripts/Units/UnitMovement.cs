@@ -61,13 +61,18 @@ namespace RTS.Units
             agent.ResetPath();
         }
 
+        //  End point for a cliente to move
         [Command]
         public void CmdMove(Vector3 position)
         {
-            if (targeter != null)
-            {
-                targeter.ClearTarget();
-            }
+            ServerMove(position);
+        }
+
+        //  Allows server to move, cant´s call Command from server
+        [Server]
+        public void ServerMove(Vector3 position)
+        {
+            targeter.ClearTarget();
 
             if (!NavMesh.SamplePosition(position, out NavMeshHit hit, 1f, NavMesh.AllAreas)) return;
 

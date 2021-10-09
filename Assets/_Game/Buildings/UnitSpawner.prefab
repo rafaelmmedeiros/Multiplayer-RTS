@@ -46,7 +46,12 @@ MonoBehaviour:
   syncInterval: 0.1
   health: {fileID: 209292510756278061}
   unitSpawnPoint: {fileID: 4278703423040463485}
-  unitPrefab: {fileID: 7799120742267180780, guid: e6110b9db96f20f4b8005adfd723ee88, type: 3}
+  unitsToSpawnText: {fileID: 8476233751778923530}
+  timerImage: {fileID: 1365537917045337219}
+  maxUnitQueue: 5
+  spawnMoveRange: 7
+  timeToSpawnUnit: 5
+  unitPrefab: {fileID: 7516155262402496689, guid: e6110b9db96f20f4b8005adfd723ee88, type: 3}
 --- !u!1001 &3158769458654558471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,8 +147,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnerTimer Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7928646761248948551, guid: 267f7ef0ca2015d4e80d620f2be9c9c9, type: 3}
+      propertyPath: m_Name
+      value: Timer Image
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267f7ef0ca2015d4e80d620f2be9c9c9, type: 3}
+--- !u!114 &1365537917045337219 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4117813527780349316, guid: 267f7ef0ca2015d4e80d620f2be9c9c9, type: 3}
+  m_PrefabInstance: {fileID: 3158769458654558471}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8476233751778923530 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6807073902418767117, guid: 267f7ef0ca2015d4e80d620f2be9c9c9, type: 3}
+  m_PrefabInstance: {fileID: 3158769458654558471}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3860910611225936710
 PrefabInstance:
   m_ObjectHideFlags: 0

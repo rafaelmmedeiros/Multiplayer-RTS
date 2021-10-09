@@ -17,12 +17,12 @@ namespace RTS.Networking
         private List<Unit> playerUnits = new List<Unit>();
         private List<Building> playerBuildings = new List<Building>();
 
-        public int GetMinerals() => money;
+        public int GetMoney() => money;
         public List<Unit> GetPlayerUnits() => playerUnits;
         public List<Building> GetPlayerBuildings() => playerBuildings;
 
         [Server]
-        public void SetMinerals(int money) => this.money = money;
+        public void SetMoney(int money) => this.money = money;
 
         public event Action<int> ClientOnMoneyUpdated;
 
