@@ -1,8 +1,11 @@
 using Mirror;
 using RTS.Combat;
 using RTS.Configs;
+using RTS.Units;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace RTS.Buildings
 {
@@ -11,9 +14,21 @@ namespace RTS.Buildings
         [Header(Headers.members)]
         [SerializeField] private Health health = null;
         [SerializeField] private Transform unitSpawnPoint = null;
+        [SerializeField] private TMP_Text unitsToSpawnText = null;
+        [SerializeField] private Image timerImage = null;
+
+        [Header(Headers.parameters)]
+        [SerializeField] private int maxUnitQueue = 5;
+        [SerializeField] private float spawnMoveRange = 7f;
+        [SerializeField] private float timeToSpawnUnit = 5f;
 
         [Header(Headers.prefabs)]
-        [SerializeField] private GameObject unitPrefab = null;
+        [SerializeField] private Unit unitPrefab = null;
+
+        [SyncVar]
+        private int queueUnits;
+        [SyncVar]
+        private float unitTimer;
 
         #region Server
 

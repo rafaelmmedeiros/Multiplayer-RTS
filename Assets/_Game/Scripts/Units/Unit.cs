@@ -14,6 +14,10 @@ namespace RTS.Units
         [SerializeField] private UnitMovement unitMovement = null;
         [SerializeField] private Health health = null;
 
+        [Header(Headers.parameters)]
+        [SerializeField] private int moneyCost = 10;
+
+
         [Header(Headers.unityEvents)]
         [SerializeField] private UnityEvent onSelected = null;
         [SerializeField] private UnityEvent onDeselected = null;
@@ -24,16 +28,9 @@ namespace RTS.Units
         public static event Action<Unit> AuthorityOnUnitSpawned;
         public static event Action<Unit> AuthorityOnUnitDespawned;
 
-
-        public UnitMovement GetUnitMovement()
-        {
-            return unitMovement;
-        }
-
-        public Targeter GetTargeter()
-        {
-            return targeter;
-        }
+        public Targeter GetTargeter() => targeter;
+        public UnitMovement GetUnitMovement() => unitMovement;
+        public int GetMoneyCost() => moneyCost;
 
         #region Server
 
