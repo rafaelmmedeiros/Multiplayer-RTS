@@ -20,17 +20,23 @@ namespace RTS.Networking
         [SyncVar(hook = nameof(HandleClientMineralsUpdated))]
         private int money = 500;
 
+        private Color playerColor = new Color();
+
         private List<Unit> playerUnits = new List<Unit>();
         private List<Building> playerBuildings = new List<Building>();
 
+        public event Action<int> ClientOnMoneyUpdated;
+
         public int GetMoney() => money;
+        public Color GetColor() => playerColor;
         public List<Unit> GetPlayerUnits() => playerUnits;
         public List<Building> GetPlayerBuildings() => playerBuildings;
 
         [Server]
         public void SetMoney(int money) => this.money = money;
 
-        public event Action<int> ClientOnMoneyUpdated;
+        [Server]
+        public void SetColor(Color playerColor) => this.playerColor = playerColor;
 
         public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 point)
         {
