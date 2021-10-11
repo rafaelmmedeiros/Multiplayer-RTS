@@ -1,5 +1,6 @@
 using Mirror;
 using RTS.Buildings;
+using RTS.Configs;
 using RTS.Units;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,12 @@ namespace RTS.Networking
 {
     public class RTSPlayer : NetworkBehaviour
     {
+        [Header(Headers.members)]
         [SerializeField] private Building[] buildings = new Building[0];
+
+        [Header(Headers.parameters)]
+        [SerializeField] private LayerMask buildingBlockLayer = new LayerMask();
+        [SerializeField] private float builgingRangeLimit = 5f;
 
         [SyncVar(hook = nameof(HandleClientMineralsUpdated))]
         private int money = 500;
@@ -25,6 +31,27 @@ namespace RTS.Networking
         public void SetMoney(int money) => this.money = money;
 
         public event Action<int> ClientOnMoneyUpdated;
+
+        public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 point)
+        {
+            if (Physics.CheckBox(
+                point + buildingCollider.center,
+                buildingCollider.size / 2,
+                Quaternion.identity,
+                buildingBlockLayer)) return false;
+
+            foreach (Building building in buildings)
+            {
+                // .magnitude is more expensive
+                if ((point - building.transform.position).sqrMagnitude <=
+                    builgingRangeLimit * builgingRangeLimit)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         #region Server
 
@@ -44,12 +71,13 @@ namespace RTS.Networking
 
             Building.ServerOnBuildingSpawned -= HandleServerBuildingSpawned;
             Building.ServerOnBuildingDespawned -= HandleServerBuildingDespawned;
-
         }
 
         [Command]
         public void CmdTryPlaceBuilding(int buildingId, Vector3 point)
         {
+            //TODO: Make methods here, a lot os responsability to the same method
+
             Building buildingToPlace = null;
 
             foreach (Building building in buildings)
@@ -63,9 +91,15 @@ namespace RTS.Networking
 
             if (buildingToPlace == null) return;
 
+            BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();
+
+            if (!CanPlaceBuilding(buildingCollider, point)) return;
+
             GameObject buildingInstance = Instantiate(buildingToPlace.gameObject, point, buildingToPlace.transform.rotation);
 
             NetworkServer.Spawn(buildingInstance, connectionToClient);
+
+            SetMoney(money - buildingToPlace.GetPrice());
         }
 
         private void HandleServerUnitSpawned(Unit unit)
