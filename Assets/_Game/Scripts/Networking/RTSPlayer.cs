@@ -15,7 +15,7 @@ namespace RTS.Networking
 
         [Header(Headers.parameters)]
         [SerializeField] private LayerMask buildingBlockLayer = new LayerMask();
-        [SerializeField] private float builgingRangeLimit = 10f;
+        [SerializeField] private float builgingRangeLimit = 5f;
 
         [SyncVar(hook = nameof(HandleClientMineralsUpdated))]
         private int money = 500;
