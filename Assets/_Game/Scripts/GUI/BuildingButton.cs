@@ -27,6 +27,7 @@ namespace RTS.GUI
 
         private GameObject buildingPreviewInstance;
         private Renderer buildingRendererInstance;
+        private BoxCollider buildingCollider;
 
         private void Start()
         {
@@ -34,6 +35,7 @@ namespace RTS.GUI
             //  TODO: Player after finish the LOBBY
             iconImage.sprite = buidlingPrefab.GetIcon();
             priceText.text = buidlingPrefab.GetPrice().ToString();
+            buildingCollider = buidlingPrefab.GetComponent<BoxCollider>();
         }
 
         private void Update()
@@ -60,6 +62,10 @@ namespace RTS.GUI
             {
                 buildingPreviewInstance.SetActive(true);
             }
+
+            Color color = (player.CanPlaceBuilding(buildingCollider, hit.point)) ? Color.green : Color.red;
+
+            buildingRendererInstance.material.SetColor("_BaseColor", color);
         }
 
 
@@ -67,6 +73,8 @@ namespace RTS.GUI
         public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
+
+            if (player.GetMoney() < buidlingPrefab.GetPrice()) return;
 
             buildingPreviewInstance = Instantiate(buidlingPrefab.GetBuildingPreview());
             buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();
