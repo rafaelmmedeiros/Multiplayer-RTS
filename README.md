@@ -6,5 +6,7 @@ Case study of Mirror Asset.
 - Network
 - Multiplayer Game
 - Mirror Lib
+- Most graphics assets used from Unity Tanks.
+https://learn.unity.com/project/tanks-tutorial
 
 ## Final Result
