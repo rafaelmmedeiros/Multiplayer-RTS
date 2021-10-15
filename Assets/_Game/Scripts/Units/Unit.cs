@@ -17,7 +17,6 @@ namespace RTS.Units
         [Header(Headers.parameters)]
         [SerializeField] private int moneyCost = 10;
 
-
         [Header(Headers.unityEvents)]
         [SerializeField] private UnityEvent onSelected = null;
         [SerializeField] private UnityEvent onDeselected = null;
