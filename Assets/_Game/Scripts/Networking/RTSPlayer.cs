@@ -12,6 +12,7 @@ namespace RTS.Networking
     {
         [Header(Headers.members)]
         [SerializeField] private Building[] buildings = new Building[0];
+        [SerializeField] private Transform cameraTransform = null;
 
         [Header(Headers.parameters)]
         [SerializeField] private LayerMask buildingBlockLayer = new LayerMask();
@@ -27,6 +28,7 @@ namespace RTS.Networking
 
         public event Action<int> ClientOnMoneyUpdated;
 
+        public Transform GetCameraTransform() => cameraTransform;
         public int GetMoney() => money;
         public Color GetColor() => playerColor;
         public List<Unit> GetPlayerUnits() => playerUnits;

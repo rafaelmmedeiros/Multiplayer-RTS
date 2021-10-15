@@ -68,6 +68,7 @@ MonoBehaviour:
   buildings:
   - {fileID: 209292510756278058, guid: e6867d9393e430048b434d6f2c014c20, type: 3}
   - {fileID: 209292510756278058, guid: a176ed8b7e6433747b5f5b9007951193, type: 3}
+  cameraTransform: {fileID: 6959248529084460067}
   buildingBlockLayer:
     serializedVersion: 2
     m_Bits: 321
