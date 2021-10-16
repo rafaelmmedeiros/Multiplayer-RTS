@@ -43,23 +43,23 @@ namespace RTS.Networking
         public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 point)
         {
             //  TODO: Problem is possivel on terrain and building Z AXIS
-            //  return true;
-            if (Physics.CheckBox(
-                point + buildingCollider.center,
-                buildingCollider.size / 2,
-                Quaternion.identity,
-                buildingBlockLayer)) return false;
+            return true;
+            //if (Physics.CheckBox(
+            //    point + buildingCollider.center,
+            //    buildingCollider.size / 2,
+            //    Quaternion.identity,
+            //    buildingBlockLayer)) return false;
 
-            foreach (Building building in buildings)
-            {
-                // .magnitude is more expensive
-                if ((point - building.transform.position).sqrMagnitude <=
-                    builgingRangeLimit * builgingRangeLimit)
-                {
-                    return true;
-                }
-            }
-            return false;
+            //foreach (Building building in buildings)
+            //{
+            //    // .magnitude is more expensive
+            //    if ((point - building.transform.position).sqrMagnitude <=
+            //        builgingRangeLimit * builgingRangeLimit)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //return false;
         }
 
         #region Server

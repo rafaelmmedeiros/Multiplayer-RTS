@@ -59,6 +59,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7827639784348218887}
     m_Modifications:
+    - target: {fileID: 4581335332495417870, guid: e0ed987d80d68cd44ac4bab92724beae, type: 3}
+      propertyPath: buidlingPrefab
+      value: 
+      objectReference: {fileID: 4796284882763576695, guid: 864f74f162062874bba5353e5903ee9e, type: 3}
     - target: {fileID: 8803849786211105396, guid: e0ed987d80d68cd44ac4bab92724beae, type: 3}
       propertyPath: m_Name
       value: Buildings Display
