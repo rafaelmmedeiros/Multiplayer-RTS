@@ -30,6 +30,22 @@ PrefabInstance:
       propertyPath: colorRenderers.Array.data[0]
       value: 
       objectReference: {fileID: 5140653760148506140}
+    - target: {fileID: 2287230650844812331, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2287230650844812333, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2287230650844812333, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2287230650844812333, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 7.703
+      objectReference: {fileID: 0}
     - target: {fileID: 3995603073147833429, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
       propertyPath: m_Name
       value: PlayerBase
@@ -104,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4830545693019446070, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4830545693019446070, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
       propertyPath: m_LocalScale.x
@@ -150,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: afd58f28713632e419efd8f302698ceb, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: afd58f28713632e419efd8f302698ceb, type: 3}
       propertyPath: m_LocalScale.x
@@ -166,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: afd58f28713632e419efd8f302698ceb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: afd58f28713632e419efd8f302698ceb, type: 3}
       propertyPath: m_LocalPosition.y
