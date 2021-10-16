@@ -183,6 +183,18 @@ PrefabInstance:
       propertyPath: price
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4830545693019446070, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830545693019446070, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830545693019446070, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8abe458d0698a940b1341ed5a45193b, type: 3}
 --- !u!1 &209292510756278035 stripped
