@@ -99,7 +99,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8814971545814121422, guid: e6110b9db96f20f4b8005adfd723ee88, type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.7
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: -6074482148847126328, guid: e6110b9db96f20f4b8005adfd723ee88, type: 3}
       propertyPath: m_AssetId
