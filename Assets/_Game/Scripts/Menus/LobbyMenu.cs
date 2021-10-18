@@ -1,28 +1,43 @@
 using Mirror;
 using RTS.Networking;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace RTS.Menus
 {
     public class LobbyMenu : MonoBehaviour
     {
         [SerializeField] private GameObject lobbyUI = null;
+        [SerializeField] private Button startGameButton = null;
 
         private void Start()
         {
             RTSNetworkManager.ClientOnConnected += HandleClientConnected;
+            RTSPlayer.AuthorityOnPartyOwnerStateUpdated += HandleAuthorityOnPartyOwnerStateUpdated;
         }
 
         private void OnDestroy()
         {
             RTSNetworkManager.ClientOnConnected -= HandleClientConnected;
+            RTSPlayer.AuthorityOnPartyOwnerStateUpdated -= HandleAuthorityOnPartyOwnerStateUpdated;
 
         }
 
         private void HandleClientConnected()
         {
             lobbyUI.SetActive(true);
+        }
+
+        private void HandleAuthorityOnPartyOwnerStateUpdated(bool state)
+        {
+            startGameButton.gameObject.SetActive(state);
+        }
+
+        public void StartGame()
+        {
+            NetworkClient.connection.identity.GetComponent<RTSPlayer>().CmdStartGame();
         }
 
         public void LeaveLobby()

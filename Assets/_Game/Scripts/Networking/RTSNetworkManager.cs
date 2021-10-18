@@ -44,8 +44,6 @@ namespace RTS.Networking
             Players.Clear();
 
             isGameInProgress = false;
-
-            ServerChangeScene("Scene_Map_01");
         }
 
         public void StartGame()
@@ -53,6 +51,8 @@ namespace RTS.Networking
             if (Players.Count < 2) return;
 
             isGameInProgress = true;
+
+            ServerChangeScene("Scene_Map_01");
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn)
@@ -63,7 +63,12 @@ namespace RTS.Networking
 
             Players.Add(player);
 
-            player.SetColor(new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f)));
+            player.SetColor(new Color(
+                UnityEngine.Random.Range(0f, 1f),
+                UnityEngine.Random.Range(0f, 1f),
+                UnityEngine.Random.Range(0f, 1f)));
+
+            player.SetIsPartyOwner(Players.Count == 1);
         }
 
         public override void OnServerSceneChanged(string sceneName)
@@ -102,7 +107,7 @@ namespace RTS.Networking
         {
             base.OnClientDisconnect(conn);
 
-            ClientOnDisconnected.Invoke();
+            ClientOnDisconnected?.Invoke();
         }
 
         public override void OnStopClient()
