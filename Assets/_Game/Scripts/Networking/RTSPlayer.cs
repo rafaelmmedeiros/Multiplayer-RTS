@@ -20,6 +20,8 @@ namespace RTS.Networking
 
         [SyncVar(hook = nameof(HandleClientMineralsUpdated))]
         private int money = 500;
+        [SyncVar(hook = nameof(HandleAuthorityPartyOwnerStateUpdated))]
+        private bool isPartyOwner = false;
 
         private Color playerColor = new Color();
 
@@ -27,16 +29,19 @@ namespace RTS.Networking
         private List<Building> playerBuildings = new List<Building>();
 
         public event Action<int> ClientOnMoneyUpdated;
+        public static event Action<bool> AuthorityOnPartyOwnerStateUpdated;
 
         public Transform GetCameraTransform() => cameraTransform;
         public int GetMoney() => money;
+        public bool GetIsPartyOwner => isPartyOwner;
         public Color GetColor() => playerColor;
         public List<Unit> GetPlayerUnits() => playerUnits;
         public List<Building> GetPlayerBuildings() => playerBuildings;
 
         [Server]
         public void SetMoney(int money) => this.money = money;
-
+        [Server]
+        public void SetIsPartyOwner(bool isPartyOwner) => this.isPartyOwner = isPartyOwner;
         [Server]
         public void SetColor(Color playerColor) => this.playerColor = playerColor;
 
@@ -80,6 +85,14 @@ namespace RTS.Networking
 
             Building.ServerOnBuildingSpawned -= HandleServerBuildingSpawned;
             Building.ServerOnBuildingDespawned -= HandleServerBuildingDespawned;
+        }
+
+        [Command]
+        public void CmdStartGame()
+        {
+            if (!isPartyOwner) return;
+
+            ((RTSNetworkManager)NetworkManager.singleton).StartGame();
         }
 
         [Command]
@@ -154,9 +167,20 @@ namespace RTS.Networking
             Building.AuthorityOnBuildingDespawned += AuthorityHandleBuildingDespawned;
         }
 
+        public override void OnStartClient()
+        {
+            if (NetworkServer.active) return;
+
+            ((RTSNetworkManager)NetworkManager.singleton).Players.Add(this);
+        }
+
         public override void OnStopClient()
         {
-            if (!isClientOnly || !hasAuthority) return;
+            if (!isClientOnly) return;
+
+            ((RTSNetworkManager)NetworkManager.singleton).Players.Remove(this);
+
+            if (!hasAuthority) return;
 
             Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
             Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
@@ -168,6 +192,13 @@ namespace RTS.Networking
         private void HandleClientMineralsUpdated(int oldResource, int newResource)
         {
             ClientOnMoneyUpdated?.Invoke(newResource);
+        }
+
+        private void HandleAuthorityPartyOwnerStateUpdated(bool oldState, bool newState)
+        {
+            if (!hasAuthority) return;
+
+            AuthorityOnPartyOwnerStateUpdated?.Invoke(newState);
         }
 
         private void AuthorityHandleUnitSpawned(Unit unit)
