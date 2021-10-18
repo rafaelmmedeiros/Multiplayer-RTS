@@ -21,6 +21,8 @@ namespace RTS.Units
 
         private void Start()
         {
+            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+
             mainCamera = Camera.main;
 
             Unit.AuthorityOnUnitDespawned += HandleAuthorityOnUnitDespawned;
@@ -45,11 +47,6 @@ namespace RTS.Units
 
         private void Update()
         {
-            if (player == null)
-            {
-                player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-            }
-
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 StartSelectionArea();

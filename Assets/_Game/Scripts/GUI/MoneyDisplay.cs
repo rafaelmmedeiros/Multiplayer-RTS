@@ -12,18 +12,12 @@ namespace RTS.GUI
 
         private RTSPlayer player;
 
-        private void Update()
+        private void Start()
         {
-            if (player == null)
-            {
-                player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
 
-                if (player != null)
-                {
-                    HandleClientOnMoneyUpdated(player.GetMoney());
-                    player.ClientOnMoneyUpdated += HandleClientOnMoneyUpdated;
-                }
-            }
+            HandleClientOnMoneyUpdated(player.GetMoney());
+            player.ClientOnMoneyUpdated += HandleClientOnMoneyUpdated;
         }
 
         private void OnDestroy()

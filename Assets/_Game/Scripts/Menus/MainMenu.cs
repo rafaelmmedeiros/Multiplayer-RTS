@@ -15,7 +15,7 @@ namespace RTS.Menus
         {
             landingPagePanel.SetActive(false);
 
-            NetworkManager.singleton.StartHost();  
+            NetworkManager.singleton.StartHost();
         }
     }
 }

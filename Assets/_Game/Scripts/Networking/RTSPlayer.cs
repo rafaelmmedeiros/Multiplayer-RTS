@@ -76,6 +76,8 @@ namespace RTS.Networking
 
             Building.ServerOnBuildingSpawned += HandleServerBuildingSpawned;
             Building.ServerOnBuildingDespawned += HandleServerBuildingDespawned;
+
+            DontDestroyOnLoad(gameObject);
         }
 
         public override void OnStopServer()
@@ -170,6 +172,8 @@ namespace RTS.Networking
         public override void OnStartClient()
         {
             if (NetworkServer.active) return;
+
+            DontDestroyOnLoad(gameObject);
 
             ((RTSNetworkManager)NetworkManager.singleton).Players.Add(this);
         }

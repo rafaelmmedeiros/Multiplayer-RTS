@@ -32,19 +32,15 @@ namespace RTS.GUI
         private void Start()
         {
             mainCamera = Camera.main;
-            //  TODO: Player after finish the LOBBY
             iconImage.sprite = buidlingPrefab.GetIcon();
             priceText.text = buidlingPrefab.GetPrice().ToString();
+
+            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
             buildingCollider = buidlingPrefab.GetComponent<BoxCollider>();
         }
 
         private void Update()
         {
-            if (player == null)
-            {
-                player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-            }
-
             if (buildingPreviewInstance == null) return;
 
             UpdateBuildingPreview();
