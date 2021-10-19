@@ -1,7 +1,5 @@
 using Mirror;
 using RTS.Configs;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RTS.Menus
