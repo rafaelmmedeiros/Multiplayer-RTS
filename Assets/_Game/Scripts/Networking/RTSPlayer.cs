@@ -22,6 +22,8 @@ namespace RTS.Networking
         private int money = 500;
         [SyncVar(hook = nameof(HandleAuthorityPartyOwnerStateUpdated))]
         private bool isPartyOwner = false;
+        [SyncVar(hook = nameof(HandleClientDisplayNameUpdated))]
+        private string displayName;
 
         private Color playerColor = new Color();
 
@@ -30,6 +32,8 @@ namespace RTS.Networking
 
         public event Action<int> ClientOnMoneyUpdated;
         public static event Action<bool> AuthorityOnPartyOwnerStateUpdated;
+        public static event Action ClientOnInfoUpdated;
+
 
         public Transform GetCameraTransform() => cameraTransform;
         public int GetMoney() => money;
@@ -37,6 +41,7 @@ namespace RTS.Networking
         public Color GetColor() => playerColor;
         public List<Unit> GetPlayerUnits() => playerUnits;
         public List<Building> GetPlayerBuildings() => playerBuildings;
+        public string GetDisplayName() => displayName;
 
         [Server]
         public void SetMoney(int money) => this.money = money;
@@ -44,6 +49,8 @@ namespace RTS.Networking
         public void SetIsPartyOwner(bool isPartyOwner) => this.isPartyOwner = isPartyOwner;
         [Server]
         public void SetColor(Color playerColor) => this.playerColor = playerColor;
+        [Server]
+        public void SetDisplayName(string displayName) => this.displayName = displayName;
 
         public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 point)
         {
@@ -180,6 +187,8 @@ namespace RTS.Networking
 
         public override void OnStopClient()
         {
+            ClientOnInfoUpdated?.Invoke();
+
             if (!isClientOnly) return;
 
             ((RTSNetworkManager)NetworkManager.singleton).Players.Remove(this);
@@ -203,6 +212,11 @@ namespace RTS.Networking
             if (!hasAuthority) return;
 
             AuthorityOnPartyOwnerStateUpdated?.Invoke(newState);
+        }
+
+        private void HandleClientDisplayNameUpdated(string oldDisplayName, string newDisplayName)
+        {
+            ClientOnInfoUpdated?.Invoke();
         }
 
         private void AuthorityHandleUnitSpawned(Unit unit)

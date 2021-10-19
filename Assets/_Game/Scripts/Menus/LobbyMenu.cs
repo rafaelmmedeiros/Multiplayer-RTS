@@ -22,7 +22,6 @@ namespace RTS.Menus
         {
             RTSNetworkManager.ClientOnConnected -= HandleClientConnected;
             RTSPlayer.AuthorityOnPartyOwnerStateUpdated -= HandleAuthorityOnPartyOwnerStateUpdated;
-
         }
 
         private void HandleClientConnected()
