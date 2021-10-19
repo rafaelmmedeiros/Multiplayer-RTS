@@ -15,4 +15,4 @@ https://learn.unity.com/project/tanks-tutorial
 <p> 🎞️- Link on youtube <a href="https://www.youtube.com/watch?v=y85asu3srH0">Click</a> </p>
 - Picture with 4 clients at the same time.
 
-<img src="https://github.com/rafaelmmedeiros/Multiplayer-RTS/blob/master/Pics/4clients.png" width="720" height=""/>
+<img src="https://github.com/rafaelmmedeiros/Multiplayer-RTS/blob/master/Pics/1.png" width="720" height=""/>
